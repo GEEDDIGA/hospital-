@@ -1,0 +1,2 @@
+release: python manage.py migrate && python manage.py shell -c "from django.contrib.auth.models import User; User.objects.filter(username='mustafa').delete(); User.objects.create_superuser('mustafa', 'mustafa@hospital.app', 'mustafa123@')"
+web: gunicorn hospital.wsgi:application
