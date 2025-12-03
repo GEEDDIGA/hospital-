@@ -7,8 +7,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-unsafe-key-change-in-produ
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1').split(',')
-
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'hospital-gray-five.vercel.app,hospital-app-zkm0.onrender.com,127.0.0.1').split(',')
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
