@@ -5,3 +5,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hospital.settings')
 
 application = get_wsgi_application()
 
+# Vercel compatibility
+app = application
+
