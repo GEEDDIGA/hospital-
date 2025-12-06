@@ -1,15 +1,17 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 
-
 class Command(BaseCommand):
-    help = 'Create a superuser account if it does not exist'
+    help = 'Create or update a superuser account'
 
     def handle(self, *args, **options):
-        if not User.objects.filter(username='mustafa').exists():
-            User.objects.create_superuser('mustafa', 'mustafa@example.com', 'mustafa123@@')
-            self.stdout.write(self.style.SUCCESS('Successfully created superuser: mustafa'))
-        else:
-            self.stdout.write(self.style.WARNING('Superuser mustafa already exists'))
-
-# Password: mustafa123@@
+        username = 'mustafa'
+        email = 'mustafa@example.com'
+        password = 'mustafa123@@'
+        
+        # Delete existing user if exists
+        User.objects.filter(username=username).delete()
+        
+        # Create new superuser
+        User.objects.create_superuser(username, email, password)
+        self.stdout.write(self.style.SUCCESS(f'Successfully created superuser: {username}'))
