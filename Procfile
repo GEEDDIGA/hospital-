@@ -1,1 +1,1 @@
-web: bash build.sh && gunicorn hospital.wsgi --log-file -
+web: python manage.py migrate && python manage.py collectstatic --no-input && gunicorn hospital.wsgi --log-file -
