@@ -17,13 +17,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
         .container {
             background: white;
             border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             padding: 40px;
-            max-width: 600px;
+            max-width: 800px;
+            width: 100%;
             text-align: center;
         }
         h1 {
@@ -34,13 +36,13 @@
         p {
             color: #666;
             margin-bottom: 30px;
-            font-size: 1.1em;
         }
         .btn-group {
             display: flex;
             gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 30px;
         }
         a {
             display: inline-block;
@@ -60,25 +62,66 @@
             transform: translateY(-2px);
         }
         .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-            border: 2px solid #667eea;
-        }
-        .btn-secondary:hover {
-            background: #667eea;
+            background: #764ba2;
             color: white;
         }
-        .status {
-            margin-top: 30px;
-            padding: 15px;
-            background: #f0f8ff;
-            border-radius: 5px;
-            color: #333;
+        .btn-secondary:hover {
+            background: #653a8a;
+            transform: translateY(-2px);
         }
-        .status.success {
-            background: #d4edda;
+        .status_success {
             color: #155724;
-            border: 1px solid #c3e6cb;
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #28a745;
+            margin-bottom: 30px;
+        }
+        .dashboard-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+        }
+        .dashboard-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card h3 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .stat-card p {
+            font-size: 0.9em;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .loading {
+            color: #667eea;
+            font-size: 1.1em;
+            margin: 20px 0;
+        }
+        .error {
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #dc3545;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -86,15 +129,70 @@
     <div class="container">
         <h1>🏥 Hospital Management</h1>
         <p>Welcome to the Hospital Management System</p>
-        
         <div class="btn-group">
             <a href="/admin/" class="btn-primary">Admin Panel</a>
-            <a href="#" class="btn-secondary">Dashboard</a>
+            <a href="#dashboard" class="btn-secondary" onclick="scrollToDashboard(); return false;">Dashboard</a>
         </div>
         
-        <div class="status success">
-            ✓ Application is running successfully on Vercel!
+        <div class="status_success">
+            ✓ Application is running successfully!
+        </div>
+        
+        <div class="dashboard-section" id="dashboard">
+            <h2>📊 Dashboard</h2>
+            <div id="dashboard-content" class="loading">Loading dashboard data...</div>
         </div>
     </div>
+
+    <script>
+        // Fetch and display dashboard data
+        async function loadDashboard() {
+            try {
+                const response = await fetch('/api/dashboard/');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    const dashboardContent = document.getElementById('dashboard-content');
+                    dashboardContent.innerHTML = `
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h3>${data.total_patients}</h3>
+                                <p>Total Patients</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>${data.total_doctors}</h3>
+                                <p>Total Doctors</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>${data.total_appointments}</h3>
+                                <p>Total Appointments</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Failed to load dashboard data');
+                }
+            } catch (error) {
+                console.error('Dashboard error:', error);
+                const dashboardContent = document.getElementById('dashboard-content');
+                dashboardContent.innerHTML = `
+                    <div class="error">
+                        ⚠️ Unable to load dashboard data. Please try again later.
+                    </div>
+                `;
+            }
+        }
+        
+        function scrollToDashboard() {
+            const dashboardSection = document.getElementById('dashboard');
+            dashboardSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Load dashboard when page loads
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+    </script>
 </body>
 </html>
