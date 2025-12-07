@@ -5,3 +5,24 @@ python-dotenv==1.2.1
 dj-database-url==0.5.0
 psycopg2-binary==2.9.9
 djangorestframework==3.14.0
+
+# Performance & Caching
+django-redis==5.4.0
+celery==5.3.4
+
+# Testing & Quality
+pytest==7.4.3
+pytest-django==4.7.0
+pytest-cov==4.1.0
+
+# Error Handling & Monitoring
+sentry-sdk==1.38.0
+
+# Security
+djangorestframework-simplejwt==5.3.0
+
+# Admin Enhancement
+django-admin-interface==0.26.0
+
+# Utilities
+python-decouple==3.8
