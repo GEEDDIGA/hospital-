@@ -16,3 +16,4 @@ else:
 END
 
 echo "Build completed successfully!"
+python manage.py init_superuser
