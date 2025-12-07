@@ -29,7 +29,7 @@ def patient_list(request):
     """Get all patients with pagination"""
     try:
         page = request.GET.get('page', 1)
-        paginator = Paginator(Patient.objects.all(), 10)
+        paginator = Paginator(Patient.objects.all().order_by('id'), 10)
         patients = paginator.get_page(page)
         data = {
             'count': paginator.count,
@@ -67,7 +67,7 @@ def doctor_list(request):
     """Get all doctors"""
     try:
         page = request.GET.get('page', 1)
-        paginator = Paginator(Doctor.objects.all(), 10)
+        paginator = Paginator(Doctor.objects.all().order_by('id'), 10)
         doctors = paginator.get_page(page)
         data = {
             'count': paginator.count,
@@ -86,7 +86,7 @@ def appointment_list(request):
     """Get all appointments"""
     try:
         page = request.GET.get('page', 1)
-        paginator = Paginator(Appointment.objects.all(), 10)
+        paginator = Paginator(Appointment.objects.all().order_by('id'), 10)
         appointments = paginator.get_page(page)
         data = {
             'count': paginator.count,
@@ -111,7 +111,7 @@ def medical_record_list(request):
     """Get all medical records"""
     try:
         page = request.GET.get('page', 1)
-        paginator = Paginator(MedicalRecord.objects.all(), 10)
+        paginator = Paginator(MedicalRecord.objects.all().order_by('id'), 10)
         records = paginator.get_page(page)
         data = {
             'count': paginator.count,
@@ -136,7 +136,7 @@ def bill_list(request):
     """Get all bills"""
     try:
         page = request.GET.get('page', 1)
-        paginator = Paginator(Bill.objects.all(), 10)
+        paginator = Paginator(Bill.objects.all().order_by('id'), 10)
         bills = paginator.get_page(page)
         data = {
             'count': paginator.count,
@@ -161,7 +161,7 @@ def medicine_list(request):
     """Get all medicines"""
     try:
         page = request.GET.get('page', 1)
-        paginator = Paginator(Medicine.objects.all(), 10)
+        paginator = Paginator(Medicine.objects.all().order_by('id'), 10)
         medicines = paginator.get_page(page)
         data = {
             'count': paginator.count,
@@ -186,7 +186,7 @@ def prescription_list(request):
     """Get all prescriptions"""
     try:
         page = request.GET.get('page', 1)
-        paginator = Paginator(Prescription.objects.all(), 10)
+        paginator = Paginator(Prescription.objects.all().order_by('id'), 10)
         prescriptions = paginator.get_page(page)
         data = {
             'count': paginator.count,
@@ -211,7 +211,7 @@ def lab_test_list(request):
     """Get all lab tests"""
     try:
         page = request.GET.get('page', 1)
-        paginator = Paginator(LabTest.objects.all(), 10)
+        paginator = Paginator(LabTest.objects.all().order_by('id'), 10)
         tests = paginator.get_page(page)
         data = {
             'count': paginator.count,
@@ -237,7 +237,7 @@ def lab_result_list(request):
     """Get all lab results"""
     try:
         page = request.GET.get('page', 1)
-        paginator = Paginator(LabResult.objects.all(), 10)
+        paginator = Paginator(LabResult.objects.all().order_by('id'), 10)
         results = paginator.get_page(page)
         data = {
             'count': paginator.count,
@@ -262,7 +262,7 @@ def report_list(request):
     """Get all reports"""
     try:
         page = request.GET.get('page', 1)
-        paginator = Paginator(Report.objects.all(), 10)
+        paginator = Paginator(Report.objects.all().order_by('id'), 10)
         reports = paginator.get_page(page)
         data = {
             'count': paginator.count,
@@ -287,7 +287,7 @@ def analytics_list(request):
     """Get analytics data"""
     try:
         page = request.GET.get('page', 1)
-        paginator = Paginator(Analytics.objects.all(), 10)
+        paginator = Paginator(Analytics.objects.all().order_by('id'), 10)
         analytics = paginator.get_page(page)
         data = {
             'count': paginator.count,
