@@ -11,3 +11,10 @@ if not User.objects.filter(username='mustafa').exists():
     print('Superuser created successfully')
 else:
     print('Superuser already exists')
+
+# Create admin superuser
+if not User.objects.filter(username='admin').exists():
+    User.objects.create_superuser('admin', 'geeddiga@gmail.com', 'Hospital@Admin123')
+    print('Admin superuser created successfully')
+else:
+    print('Admin superuser already exists')
