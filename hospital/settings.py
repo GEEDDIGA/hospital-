@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-unsafe-key-change-in-production')
 
 DEBUG = True
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'web-production-fb7ce.up.railway.app,hospital-gray-five.vercel.app,hospital-apweb-production-1ff3c.up.railway.app,p-zkm0.onrender.com,hospital-x5t5.onrender.com,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'web-production-fb7ce.up.railway.app,hospital-gray-five.vercel.app,hospital-apweb-production-1ff3c.up.railway.app,p-zkm0.onrender.com,hospital-x5t5.onrender.com,127.0.0.1,hospital-git-main-geedigas-projects.vercel.app').split(',')
 CSRF_TRUSTED_ORIGINS = ['https://web-production-fb7ce.up.railway.app', 'https://hospital-x5t5.onrender.com']
 INSTALLED_APPS = [
     'django.contrib.admin',
