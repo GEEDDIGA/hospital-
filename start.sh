@@ -14,9 +14,9 @@ python manage.py shell << EOF
 from django.contrib.auth.models import User
 import os
 
-username = os.getenv('ADMIN_USERNAME', 'admin')
-email = os.getenv('ADMIN_EMAIL', 'admin@example.com')
-password = os.getenv('ADMIN_PASSWORD', 'admin123')
+username = 'admin'
+email = 'admin@example.com'
+password = 'admin123'
 
 # Delete existing user with same username
 User.objects.filter(username=username).delete()
