@@ -7,8 +7,7 @@ python manage.py migrate
 python manage.py shell << EOF
 from django.contrib.auth.models import User
 import os
-if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser(os.getenv('ADMIN_USERNAME', 'admin'), os.getenv('ADMIN_EMAIL', 'admin@example.com'), os.getenv('ADMIN_PASSWORD', 'admin123'))
+if not User.objects.filter(username=os.getenv('ADMIN_USERNAME', 'admin')).exists():        User.objects.create_superuser(os.getenv('ADMIN_USERNAME', 'admin'), os.getenv('ADMIN_EMAIL', 'admin@example.com'), os.getenv('ADMIN_PASSWORD', 'admin123'))
 EOF
 
 # Collect static files
