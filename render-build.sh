@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+rm -f db.sqlite3
 echo "Running database migrations..."
 python manage.py migrate
 echo "Creating/updating superuser..."
