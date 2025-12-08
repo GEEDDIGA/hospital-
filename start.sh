@@ -14,4 +14,4 @@ EOF
 python manage.py collectstatic --no-input
 
 # Start Gunicorn
-exec gunicorn hospital.wsgi --log-file -
+exec gunicorn hospital.wsgi --bind 0.0.0.0:${PORT:-8000} --log-file -
