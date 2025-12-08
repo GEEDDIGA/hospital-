@@ -22,4 +22,6 @@ else:
     User.objects.create_superuser(username, email, password)
     print(f'Superuser {username} created successfully')
 EOF
+echo "Collecting static files..."
+python manage.py collectstatic --no-input
 echo "Build completed successfully!"
