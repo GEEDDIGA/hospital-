@@ -1,37 +1,26 @@
 #!/bin/bash
 set -o errexit
 
-echo "Starting Django application setup..."
+echo "Running Django migrations..."
+python manage.py migrate --no-input
 
-# Run migrations
-echo "Running migrations..."
-python manage.py migrate
-
-# Create superuser with error handling
-echo "Setting up superuser..."
-python manage.py shell << EOF
-from django.contrib.auth.models import User
+echo "Creating superuser..."
+python manage.py shell <<EOF
 import os
-
-username = os.getenv('SUPERUSER_USERNAME', 'admin')
-email = os.getenv('SUPERUSER_EMAIL', 'admin@example.com')
-password = os.getenv('SUPERUSER_PASSWORD', 'admin123')
-
-try:
-    User.objects.filter(username=username).delete()
-    user = User.objects.create_superuser(username, email, password)
-    print(f'✓ Superuser "{username}" created successfully')
-except Exception as e:
-    print(f'✗ Error creating superuser: {str(e)}')
-    exit(1)
+from django.contrib.auth import get_user_model
+User = get_user_model()
+username = os.environ.get('SUPERUSER_USERNAME', 'admin')
+email = os.environ.get('SUPERUSER_EMAIL', 'admin@example.com')
+password = os.environ.get('SUPERUSER_PASSWORD', 'admin123')
+if not User.objects.filter(username=username).exists():
+    User.objects.create_superuser(username, email, password)
+    print(f'Superuser {username} created')
+else:
+    print(f'Superuser {username} already exists')
 EOF
 
-echo "Migrations and superuser setup completed successfully"
-
-# Collect static files
 echo "Collecting static files..."
 python manage.py collectstatic --no-input --clear
 
-# Start Gunicorn
-echo "Starting Gunicorn server..."
-exec gunicorn hospital.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers ${GUNICORN_WORKERS:-2} --timeout 120 --access-logfile - --error-logfile -
+echo "Starting server..."
+gunicorn hospital.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 2
