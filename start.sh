@@ -18,15 +18,9 @@ email = os.getenv('SUPERUSER_EMAIL', 'admin@example.com')
 password = os.getenv('SUPERUSER_PASSWORD', 'admin123')
 
 try:
-    # Delete existing user with same username
     User.objects.filter(username=username).delete()
-    
-    # Create new superuser
     user = User.objects.create_superuser(username, email, password)
     print(f'✓ Superuser "{username}" created successfully')
-    print(f'  Username: {username}')
-    print(f'  Password: {password}')
-    print(f'  Email: {email}')
 except Exception as e:
     print(f'✗ Error creating superuser: {str(e)}')
     exit(1)
